@@ -87,16 +87,23 @@ def _check_rate_limit() -> None:
 
 
 def _extract_suggestions(text: str) -> tuple[str, list[str]]:
-    pattern = r"<suggestions>\s*(\[.*?\])\s*</suggestions>"
-    match = re.search(pattern, text, re.DOTALL)
-    if not match:
-        return text.strip(), []
-    try:
-        suggestions = json.loads(match.group(1))
-        clean = re.sub(pattern, "", text, flags=re.DOTALL).strip()
-        return clean, suggestions if isinstance(suggestions, list) else []
-    except (json.JSONDecodeError, ValueError):
-        return text.strip(), []
+    # Always strip the <suggestions> block — even if JSON parsing fails,
+    # so the raw ["text"] array never leaks into the visible response.
+    block_pattern = r"<suggestions>[\s\S]*?</suggestions>"
+    inner_pattern = r"<suggestions>\s*(\[[\s\S]*?\])\s*</suggestions>"
+
+    suggestions: list[str] = []
+    match = re.search(inner_pattern, text, re.DOTALL)
+    if match:
+        try:
+            parsed = json.loads(match.group(1))
+            if isinstance(parsed, list):
+                suggestions = [s for s in parsed if isinstance(s, str)]
+        except (json.JSONDecodeError, ValueError):
+            pass
+
+    clean = re.sub(block_pattern, "", text, flags=re.DOTALL).strip()
+    return clean, suggestions
 
 
 class Message(BaseModel):
