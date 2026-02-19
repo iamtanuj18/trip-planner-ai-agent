@@ -11,3 +11,13 @@ run:
   env:
     - name: PYTHONPATH
       value: /app/deps
+    - name: ALLOWED_ORIGINS
+      value: https://main.d2w43whsnkjgdq.amplifyapp.com
+    - name: AWS_REGION
+      value: us-east-1
+    - name: BEDROCK_MODEL_ID
+      value: us.amazon.nova-lite-v1:0
+    - name: MAX_DAILY_REQUESTS
+      value: "50"
+    - name: MAX_MONTHLY_REQUESTS
+      value: "500"
