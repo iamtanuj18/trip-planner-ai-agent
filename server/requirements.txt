@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+mangum
+pydantic
+python-dotenv
+langchain
+langchain-aws
+langchain-core
+langgraph
+boto3
+tzdata

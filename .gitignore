@@ -1,0 +1,61 @@
+# ── Project Docs ──────────────
+BUILD_PLAN.md
+
+# ── Python ────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# ── Environment / Secrets ─────────────────────────
+.env
+.env.local
+.env.production
+.env.*.local
+*.env
+server/.env
+!.env.example
+!server/.env.example
+
+# ── AWS ───────────────────────────────────────────
+.aws/
+aws-credentials
+
+# ── Node / Frontend ───────────────────────────────
+node_modules/
+client/dist/
+client/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Docker ────────────────────────────────────────
+*.tar
+
+# ── OS ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Misc ──────────────────────────────────────────
+*.log
+.cache/
+

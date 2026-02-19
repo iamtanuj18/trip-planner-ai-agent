@@ -1,0 +1,588 @@
+[
+  {
+    "id": "tokyo",
+    "name": "Tokyo",
+    "country": "Japan",
+    "region": "Asia",
+    "description": "Tokyo blends ultra-modern city life with deeply rooted traditions. From neon-lit districts to ancient temples, the city rewards every type of traveller.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 140,
+    "avg_flight_cost_usd": 850,
+    "currency": "JPY",
+    "language": "Japanese",
+    "visa_notes": "Australians can visit Japan visa-free for up to 90 days.",
+    "tips": [
+      "Get a Suica or Pasmo IC card for seamless transport",
+      "Visit Senso-ji at 6am to beat the crowds",
+      "Cash is still widely used — carry some at all times"
+    ],
+    "activities": [
+      { "name": "Senso-ji Temple", "category": "culture", "duration_hours": 2, "cost_usd": 0, "description": "Tokyo's oldest Buddhist temple in Asakusa, dating back to 628 AD." },
+      { "name": "Shibuya Crossing & Scramble", "category": "culture", "duration_hours": 1, "cost_usd": 0, "description": "The world's busiest pedestrian crossing — best viewed from Starbucks above." },
+      { "name": "Tsukiji Outer Market Food Tour", "category": "food", "duration_hours": 3, "cost_usd": 35, "description": "Freshest sushi, tamagoyaki, and street food stalls in the outer market." },
+      { "name": "Tokyo Skytree", "category": "culture", "duration_hours": 2, "cost_usd": 25, "description": "Panoramic views of Tokyo from 350m and 450m observation decks." },
+      { "name": "Shinjuku Golden Gai", "category": "nightlife", "duration_hours": 3, "cost_usd": 30, "description": "A maze of tiny bars and unique nightlife in the heart of Shinjuku." },
+      { "name": "Harajuku & Takeshita Street", "category": "shopping", "duration_hours": 2, "cost_usd": 20, "description": "Fashion-forward street lined with crepe shops and quirky boutiques." },
+      { "name": "Shinjuku Gyoen National Garden", "category": "nature", "duration_hours": 2, "cost_usd": 2, "description": "Stunning traditional Japanese garden with cherry blossoms in spring." }
+    ]
+  },
+  {
+    "id": "kyoto",
+    "name": "Kyoto",
+    "country": "Japan",
+    "region": "Asia",
+    "description": "Japan's ancient imperial capital, filled with thousands of temples, traditional tea houses, and geisha districts. Autumn foliage and spring cherry blossoms are world-famous.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 120,
+    "avg_flight_cost_usd": 850,
+    "currency": "JPY",
+    "language": "Japanese",
+    "visa_notes": "Australians can visit Japan visa-free for up to 90 days.",
+    "tips": [
+      "Rent a bicycle — Kyoto is very cycle-friendly",
+      "Visit Fushimi Inari at sunrise to avoid tour groups",
+      "Book ryokan accommodations months ahead during cherry blossom season"
+    ],
+    "activities": [
+      { "name": "Fushimi Inari Shrine", "category": "culture", "duration_hours": 3, "cost_usd": 0, "description": "Walk through thousands of vermillion torii gates winding up the mountainside." },
+      { "name": "Arashiyama Bamboo Grove", "category": "nature", "duration_hours": 1.5, "cost_usd": 0, "description": "A towering bamboo forest just outside central Kyoto." },
+      { "name": "Gion District Walk", "category": "culture", "duration_hours": 2, "cost_usd": 0, "description": "Kyoto's famous geisha district with preserved machiya townhouses." },
+      { "name": "Kinkaku-ji (Golden Pavilion)", "category": "culture", "duration_hours": 1.5, "cost_usd": 5, "description": "A Zen Buddhist temple covered in gold leaf reflected in a still pond." },
+      { "name": "Traditional Kaiseki Dinner", "category": "food", "duration_hours": 2, "cost_usd": 80, "description": "Multi-course traditional Japanese cuisine using seasonal local ingredients." },
+      { "name": "Nishiki Market", "category": "food", "duration_hours": 2, "cost_usd": 20, "description": "Kyoto's Nishiki Market with 100+ stalls of pickles, tofu, and local snacks." }
+    ]
+  },
+  {
+    "id": "bali",
+    "name": "Bali",
+    "country": "Indonesia",
+    "region": "Asia",
+    "description": "Bali offers a rare combination of lush rice terraces, Hindu temples, world-class surf, and an affordable wellness scene. It remains one of the world's most beloved islands.",
+    "best_seasons": ["summer", "spring"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 50,
+    "avg_flight_cost_usd": 500,
+    "currency": "IDR",
+    "language": "Balinese / Indonesian",
+    "visa_notes": "Australians receive a 30-day visa on arrival, extendable to 60 days.",
+    "tips": [
+      "Rent a scooter for flexibility — most areas are scooter-friendly",
+      "Ubud is calmer and more cultural; Seminyak and Canggu for beaches",
+      "Bargain respectfully at markets"
+    ],
+    "activities": [
+      { "name": "Tegallalang Rice Terraces", "category": "nature", "duration_hours": 2, "cost_usd": 2, "description": "UNESCO-listed terraced rice paddies outside Ubud with jungle views." },
+      { "name": "Tanah Lot Temple at Sunset", "category": "culture", "duration_hours": 2, "cost_usd": 5, "description": "A sea temple perched on a rocky outcrop, spectacular at sunset." },
+      { "name": "Surf Lesson at Kuta Beach", "category": "adventure", "duration_hours": 2, "cost_usd": 25, "description": "Beginner-friendly waves and local surf instructors at Kuta." },
+      { "name": "Ubud Cooking Class", "category": "food", "duration_hours": 4, "cost_usd": 30, "description": "Learn to cook nasi goreng, satay, and traditional Balinese dishes." },
+      { "name": "Mount Batur Sunrise Trek", "category": "adventure", "duration_hours": 6, "cost_usd": 35, "description": "Pre-dawn hike to an active volcano summit for a sunrise view above the clouds." },
+      { "name": "Traditional Balinese Massage", "category": "relaxation", "duration_hours": 1.5, "cost_usd": 12, "description": "A full-body massage using coconut oil and aromatic herbs." }
+    ]
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "country": "Singapore",
+    "region": "Asia",
+    "description": "Singapore is a hyper-efficient city-state that punches far above its weight in food, architecture, and cleanliness. An excellent regional hub for Southeast Asia travel.",
+    "best_seasons": ["winter", "spring"],
+    "budget_level": "luxury",
+    "avg_daily_cost_usd": 170,
+    "avg_flight_cost_usd": 400,
+    "currency": "SGD",
+    "language": "English",
+    "visa_notes": "Australians arrive visa-free and can stay up to 90 days.",
+    "tips": [
+      "Get an EZ-Link card for the MRT — fastest way to get around",
+      "Hawker centres are the best bang-for-buck food in the world",
+      "Singapore is expensive for alcohol — stock up at duty-free"
+    ],
+    "activities": [
+      { "name": "Gardens by the Bay", "category": "nature", "duration_hours": 3, "cost_usd": 20, "description": "Futuristic supertrees and climate-controlled domes housing rare plant species." },
+      { "name": "Hawker Centre Crawl", "category": "food", "duration_hours": 2, "cost_usd": 10, "description": "Try chicken rice, laksa, char kway teow across multiple stalls." },
+      { "name": "Marina Bay Sands Skypark", "category": "culture", "duration_hours": 1.5, "cost_usd": 25, "description": "Observation deck and infinity pool views at the iconic hotel." },
+      { "name": "Chinatown & Little India Walk", "category": "culture", "duration_hours": 2.5, "cost_usd": 0, "description": "Explore two of Singapore's most colourful and distinct cultural districts." },
+      { "name": "Sentosa Island Beach Day", "category": "relaxation", "duration_hours": 4, "cost_usd": 15, "description": "Beach clubs, Universal Studios, and cable car all on one resort island." }
+    ]
+  },
+  {
+    "id": "paris",
+    "name": "Paris",
+    "country": "France",
+    "region": "Europe",
+    "description": "Paris is the global capital of art, fashion, and café culture. The city rewards slow walks through its grand boulevards and hidden courtyards equally.",
+    "best_seasons": ["spring", "summer"],
+    "budget_level": "luxury",
+    "avg_daily_cost_usd": 190,
+    "avg_flight_cost_usd": 1350,
+    "currency": "EUR",
+    "language": "French",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Buy a carnet of 10 metro tickets to save money",
+      "Most major museums are free on the first Sunday of each month",
+      "Learn basic French phrases — locals genuinely appreciate the effort"
+    ],
+    "activities": [
+      { "name": "Eiffel Tower", "category": "culture", "duration_hours": 2, "cost_usd": 30, "description": "The 330m wrought-iron tower — best visited at dusk for a light show." },
+      { "name": "Louvre Museum", "category": "culture", "duration_hours": 4, "cost_usd": 22, "description": "World's largest art museum and home to the Mona Lisa and Venus de Milo." },
+      { "name": "Montmartre & Sacré-Cœur", "category": "culture", "duration_hours": 2.5, "cost_usd": 0, "description": "Paris's historic artist village with the white-domed Sacré-Cœur basilica." },
+      { "name": "Seine River Cruise", "category": "relaxation", "duration_hours": 1, "cost_usd": 16, "description": "Boat cruise past Notre-Dame, the Louvre, and the Eiffel Tower." },
+      { "name": "French Bistro Dinner", "category": "food", "duration_hours": 2, "cost_usd": 40, "description": "Classic steak frites, escargot, and crème brûlée in a neighbourhood bistro." },
+      { "name": "Versailles Day Trip", "category": "culture", "duration_hours": 6, "cost_usd": 35, "description": "The Sun King's lavish palace and 800-hectare formal gardens, 40 min from Paris." }
+    ]
+  },
+  {
+    "id": "rome",
+    "name": "Rome",
+    "country": "Italy",
+    "region": "Europe",
+    "description": "Rome is an open-air museum where ancient ruins, Renaissance masterpieces, and vibrant café culture coexist. Every piazza has a story spanning thousands of years.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 130,
+    "avg_flight_cost_usd": 1300,
+    "currency": "EUR",
+    "language": "Italian",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Book Vatican Museums online at least 2 weeks ahead",
+      "Avoid tourist restaurants near major landmarks — walk one block back",
+      "Carry a reusable bottle — Rome's public water fountains (nasoni) are free and delicious"
+    ],
+    "activities": [
+      { "name": "Colosseum & Roman Forum", "category": "culture", "duration_hours": 4, "cost_usd": 18, "description": "The 2,000-year-old amphitheatre and the political centre of ancient Rome." },
+      { "name": "Vatican Museums & Sistine Chapel", "category": "culture", "duration_hours": 4, "cost_usd": 20, "description": "Michelangelo's ceiling fresco is the centrepiece of this vast papal collection." },
+      { "name": "Trastevere Evening Walk", "category": "food", "duration_hours": 3, "cost_usd": 30, "description": "Rome's most atmospheric medieval neighbourhood, packed with trattorias." },
+      { "name": "Trevi Fountain & Spanish Steps", "category": "culture", "duration_hours": 1.5, "cost_usd": 0, "description": "The baroque Trevi Fountain and the grand Spanish Steps in the city centre." },
+      { "name": "Borghese Gallery", "category": "culture", "duration_hours": 2, "cost_usd": 15, "description": "Bernini sculptures and Caravaggio paintings in a stunning 17th-century villa." }
+    ]
+  },
+  {
+    "id": "barcelona",
+    "name": "Barcelona",
+    "country": "Spain",
+    "region": "Europe",
+    "description": "Barcelona is Gaudí's canvas, a city of modernist architecture, golden beaches, and electric nightlife. Catalunya's capital runs on its own energy and schedule.",
+    "best_seasons": ["spring", "summer"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 120,
+    "avg_flight_cost_usd": 1300,
+    "currency": "EUR",
+    "language": "Spanish / Catalan",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Book Sagrada Família tickets months in advance — it sells out",
+      "Dinner starts at 9pm or later — don't show up at a restaurant at 7pm",
+      "Watch for pickpockets on Las Ramblas"
+    ],
+    "activities": [
+      { "name": "Sagrada Família", "category": "culture", "duration_hours": 2.5, "cost_usd": 26, "description": "Gaudí's unfinished basilica — the most visited monument in Spain." },
+      { "name": "Park Güell", "category": "culture", "duration_hours": 2, "cost_usd": 10, "description": "Gaudí's mosaic-covered hilltop park with panoramic city views." },
+      { "name": "La Barceloneta Beach", "category": "relaxation", "duration_hours": 3, "cost_usd": 0, "description": "The city's main beach, walkable from the Gothic Quarter." },
+      { "name": "La Boqueria Market", "category": "food", "duration_hours": 1.5, "cost_usd": 15, "description": "Barcelona's most famous covered food market on Las Ramblas." },
+      { "name": "Tapas & Wine Night", "category": "food", "duration_hours": 3, "cost_usd": 35, "description": "Bar-hop through El Born for patatas bravas, jamón, and Catalan wine." },
+      { "name": "Gothic Quarter Walk", "category": "culture", "duration_hours": 2, "cost_usd": 0, "description": "Medieval lanes and Roman ruins at the city's historic core." }
+    ]
+  },
+  {
+    "id": "amsterdam",
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "region": "Europe",
+    "description": "Amsterdam is a city of canals, cycling, and world-class museums packed into a compact, walkable centre. Liberal and vibrant, it rewards curious travellers.",
+    "best_seasons": ["spring", "summer"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 130,
+    "avg_flight_cost_usd": 1300,
+    "currency": "EUR",
+    "language": "Dutch",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Rent a bike on your first day — locals cycle everywhere",
+      "Book the Anne Frank House in advance — queues are long",
+      "The Rijksmuseum and Van Gogh Museum are must-sees"
+    ],
+    "activities": [
+      { "name": "Rijksmuseum", "category": "culture", "duration_hours": 3, "cost_usd": 22, "description": "Dutch Golden Age masters including Rembrandt and Vermeer." },
+      { "name": "Anne Frank House", "category": "culture", "duration_hours": 2, "cost_usd": 16, "description": "The hiding place of Anne Frank, now a deeply moving museum." },
+      { "name": "Canal Boat Tour", "category": "relaxation", "duration_hours": 1, "cost_usd": 16, "description": "See 17th-century merchant houses and bridges from the water." },
+      { "name": "Jordaan Neighbourhood Walk", "category": "culture", "duration_hours": 2, "cost_usd": 0, "description": "Amsterdam's most charming district of boutiques, galleries, and cafés." },
+      { "name": "Stroopwafel & Heineken Experience", "category": "food", "duration_hours": 2, "cost_usd": 25, "description": "Interactive brewery tour ending with a cold Heineken at the source." }
+    ]
+  },
+  {
+    "id": "new-york-city",
+    "name": "New York City",
+    "country": "United States",
+    "region": "Americas",
+    "description": "New York City is relentlessly energetic, with world-class food, culture, and entertainment packed into every borough. There is nowhere else quite like it.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "luxury",
+    "avg_daily_cost_usd": 210,
+    "avg_flight_cost_usd": 1400,
+    "currency": "USD",
+    "language": "English",
+    "visa_notes": "Australians must apply for ESTA (Electronic System for Travel Authorisation) before flying to the US.",
+    "tips": [
+      "Buy an unlimited 7-day Metro card if staying a week",
+      "Tipping 18–20% is expected at restaurants",
+      "Free activities: Central Park, High Line, Brooklyn Bridge, Staten Island Ferry"
+    ],
+    "activities": [
+      { "name": "Central Park", "category": "nature", "duration_hours": 3, "cost_usd": 0, "description": "840-acre green oasis in the heart of Manhattan — row boats, skyline views, and live music." },
+      { "name": "The Metropolitan Museum of Art", "category": "culture", "duration_hours": 4, "cost_usd": 30, "description": "One of the world's greatest art collections, from Egyptian mummies to Impressionism." },
+      { "name": "Brooklyn Bridge Walk", "category": "culture", "duration_hours": 1, "cost_usd": 0, "description": "Walk the pedestrian path for sweeping views of the Manhattan skyline." },
+      { "name": "Broadway Show", "category": "nightlife", "duration_hours": 3, "cost_usd": 100, "description": "World-class theatre — from established hits to experimental Off-Broadway." },
+      { "name": "Chelsea Market & High Line", "category": "food", "duration_hours": 3, "cost_usd": 20, "description": "An elevated park built on an old rail line above gourmet food vendors." },
+      { "name": "DUMBO & Brooklyn Food Scene", "category": "food", "duration_hours": 3, "cost_usd": 25, "description": "Pizza, bagels, and NYC's best views of the bridge from Brooklyn's waterfront." }
+    ]
+  },
+  {
+    "id": "mexico-city",
+    "name": "Mexico City",
+    "country": "Mexico",
+    "region": "Americas",
+    "description": "Mexico City is one of the world's great capitals — a megacity with extraordinary food, ancient history, and a thriving arts scene, all at budget-friendly prices.",
+    "best_seasons": ["winter", "spring"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 55,
+    "avg_flight_cost_usd": 1100,
+    "currency": "MXN",
+    "language": "Spanish",
+    "visa_notes": "Australians receive a tourist permit on arrival valid for up to 180 days.",
+    "tips": [
+      "Stick to Uber over street taxis for safety",
+      "Mexico City sits at 2,240m altitude — allow 1–2 days to acclimatise",
+      "Eat at taquerias and mercados — cheapest and best food"
+    ],
+    "activities": [
+      { "name": "Teotihuacán Pyramids", "category": "culture", "duration_hours": 5, "cost_usd": 6, "description": "Ancient city 50km from CDMX with the Pyramids of the Sun and Moon." },
+      { "name": "Frida Kahlo Museum", "category": "culture", "duration_hours": 2.5, "cost_usd": 12, "description": "The Blue House where Frida Kahlo was born, lived, and died." },
+      { "name": "Mercado de la Merced Tacos", "category": "food", "duration_hours": 2, "cost_usd": 8, "description": "Carnitas, barbacoa, and al pastor tacos at one of the city's biggest markets." },
+      { "name": "Xochimilco Floating Gardens", "category": "nature", "duration_hours": 3, "cost_usd": 15, "description": "Ancient Aztec canal system — hire a colourful trajinera boat with food and music." },
+      { "name": "Lucha Libre Wrestling Show", "category": "nightlife", "duration_hours": 2.5, "cost_usd": 10, "description": "Mexico's masked wrestling spectacle — loud, theatrical, and unforgettable." }
+    ]
+  },
+  {
+    "id": "sydney",
+    "name": "Sydney",
+    "country": "Australia",
+    "region": "Oceania",
+    "description": "Sydney combines iconic architecture, world-class beaches, and a relaxed outdoor lifestyle. As Australia's largest city, it's a natural gateway to the country.",
+    "best_seasons": ["spring", "summer"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 155,
+    "avg_flight_cost_usd": 150,
+    "currency": "AUD",
+    "language": "English",
+    "visa_notes": "No visa required for Australian citizens. Overseas visitors need an ETA or tourist visa.",
+    "tips": [
+      "Load money on an Opal card for trains, buses, and ferries",
+      "The Manly Ferry from Circular Quay is one of the world's great commutes",
+      "Slip, slop, slap — UV is extreme, especially in summer"
+    ],
+    "activities": [
+      { "name": "Sydney Opera House Tour", "category": "culture", "duration_hours": 2, "cost_usd": 35, "description": "Guided tour of the UNESCO-listed building — go backstage if possible." },
+      { "name": "Bondi to Coogee Coastal Walk", "category": "nature", "duration_hours": 2.5, "cost_usd": 0, "description": "6km clifftop walk connecting Sydney's best beaches with sweeping ocean views." },
+      { "name": "Sydney Harbour Bridge Climb", "category": "adventure", "duration_hours": 3.5, "cost_usd": 180, "description": "Climb to the summit of the iconic bridge for 360° harbour views." },
+      { "name": "Darling Harbour Seafood Dinner", "category": "food", "duration_hours": 2, "cost_usd": 45, "description": "Fresh prawns, barramundi, and Sydney rock oysters at the waterfront." },
+      { "name": "BlueMountains Day Trip", "category": "nature", "duration_hours": 8, "cost_usd": 40, "description": "UNESCO World Heritage wilderness 90 minutes from Sydney — waterfalls and lookouts." }
+    ]
+  },
+  {
+    "id": "cape-town",
+    "name": "Cape Town",
+    "country": "South Africa",
+    "region": "Africa",
+    "description": "Cape Town is framed by the iconic Table Mountain and two oceans. It offers dramatic scenery, rich history, excellent wine, and some of the world's most affordable luxury.",
+    "best_seasons": ["summer", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 80,
+    "avg_flight_cost_usd": 1200,
+    "currency": "ZAR",
+    "language": "English / Afrikaans / Xhosa",
+    "visa_notes": "Australians receive visa-free entry for tourism for up to 90 days.",
+    "tips": [
+      "Only use Uber or pre-booked transfers — avoid unmetered taxis",
+      "Check the weather forecast before booking Table Mountain cable car",
+      "Cape Town has one of the worst inequality gaps in the world — tip generously"
+    ],
+    "activities": [
+      { "name": "Table Mountain Cable Car", "category": "nature", "duration_hours": 3, "cost_usd": 20, "description": "The flat-topped mountain with sweeping 360° views of the city, peninsula, and ocean." },
+      { "name": "Cape Peninsula & Cape Point Drive", "category": "nature", "duration_hours": 7, "cost_usd": 45, "description": "A full-day drive through Hout Bay, Boulder's Beach penguins, and Cape Point." },
+      { "name": "Stellenbosch Wine Tasting", "category": "food", "duration_hours": 5, "cost_usd": 40, "description": "South Africa's wine heartland — Pinotage, Chenin Blanc, and cellar tours." },
+      { "name": "Robben Island Ferry Tour", "category": "culture", "duration_hours": 4, "cost_usd": 25, "description": "Ferry to the island where Nelson Mandela was imprisoned for 18 years." },
+      { "name": "V&A Waterfront Evening", "category": "food", "duration_hours": 2.5, "cost_usd": 30, "description": "Restaurants, craft beer, and live music at the redeveloped Victorian harbour." }
+    ]
+  },
+  {
+    "id": "marrakech",
+    "name": "Marrakech",
+    "country": "Morocco",
+    "region": "Africa",
+    "description": "Marrakech is a sensory explosion of winding medina lanes, riads, souks, and call-to-prayer echoing over terracotta rooftops. North Africa at its most vivid.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 50,
+    "avg_flight_cost_usd": 1500,
+    "currency": "MAD",
+    "language": "Arabic / French",
+    "visa_notes": "Australians receive visa-free entry for up to 90 days.",
+    "tips": [
+      "Negotiate firmly but politely in the souks — first price is never final",
+      "Stay in a riad inside the medina for the full experience",
+      "Visit Djemaa el-Fna square at both midday and night — completely different atmosphere"
+    ],
+    "activities": [
+      { "name": "Djemaa el-Fna Square", "category": "culture", "duration_hours": 2, "cost_usd": 5, "description": "The main square transforms from acrobats and snake charmers by day to food stalls by night." },
+      { "name": "Medina Souk Walk", "category": "shopping", "duration_hours": 3, "cost_usd": 20, "description": "Lose yourself in the UNESCO-listed old city maze of spice markets and leather tanneries." },
+      { "name": "Bahia Palace", "category": "culture", "duration_hours": 1.5, "cost_usd": 3, "description": "A stunning 19th-century palace with intricate Moroccan tilework and painted ceilings." },
+      { "name": "Moroccan Cooking Class", "category": "food", "duration_hours": 4, "cost_usd": 35, "description": "Learn to make tagine, harira soup, and bastilla in a traditional riad kitchen." },
+      { "name": "Atlas Mountains Day Trip", "category": "adventure", "duration_hours": 8, "cost_usd": 50, "description": "Berber villages, mountain waterfalls, and mule trekking 1 hour from the city." }
+    ]
+  },
+  {
+    "id": "dubai",
+    "name": "Dubai",
+    "country": "United Arab Emirates",
+    "region": "Middle East",
+    "description": "Dubai is a city of superlatives — the tallest building, the largest mall, the most ambitious archipelagos. A 30-year-old skyline built from desert ambition and oil wealth.",
+    "best_seasons": ["winter", "spring"],
+    "budget_level": "luxury",
+    "avg_daily_cost_usd": 200,
+    "avg_flight_cost_usd": 600,
+    "currency": "AED",
+    "language": "Arabic / English",
+    "visa_notes": "Australians receive a free 30-day visa on arrival.",
+    "tips": [
+      "Visit October–March when it's cool enough to spend time outdoors",
+      "Dress modestly in malls, mosques, and public areas",
+      "The Dubai Metro is clean, fast, and air-conditioned — use it"
+    ],
+    "activities": [
+      { "name": "Burj Khalifa Observation Deck", "category": "culture", "duration_hours": 2, "cost_usd": 35, "description": "View from the top of the world's tallest building at 828m above the desert." },
+      { "name": "Dubai Creek & Al Fahidi", "category": "culture", "duration_hours": 2.5, "cost_usd": 0, "description": "Old Dubai's historic trading district with wind tower architecture and the spice souk." },
+      { "name": "Desert Safari & BBQ Dinner", "category": "adventure", "duration_hours": 6, "cost_usd": 70, "description": "Dune bashing in 4WDs, camel riding, and a traditional Arabic dinner under the stars." },
+      { "name": "Dubai Mall & Dubai Fountain", "category": "shopping", "duration_hours": 3, "cost_usd": 10, "description": "One of the world's largest malls, with the world's biggest dancing fountain outside." },
+      { "name": "Jumeirah Beach & Brunch", "category": "relaxation", "duration_hours": 4, "cost_usd": 60, "description": "Beach clubs, infinity pools, and the iconic Friday brunch culture of Dubai." }
+    ]
+  },
+  {
+    "id": "hanoi",
+    "name": "Hanoi",
+    "country": "Vietnam",
+    "region": "Asia",
+    "description": "Vietnam's ancient capital is a city of lakes, shaded boulevards, and centuries of history. The Old Quarter's 36 guild streets remain largely unchanged, and the street food scene is arguably the best in Southeast Asia.",
+    "best_seasons": ["autumn", "spring"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 40,
+    "avg_flight_cost_usd": 550,
+    "currency": "VND",
+    "language": "Vietnamese",
+    "visa_notes": "Australians can get an e-visa for Vietnam online before departure, valid for up to 90 days.",
+    "tips": [
+      "Cross busy streets slowly and steadily — motorbikes will flow around you",
+      "Grab coffee at a bia hoi (street corner bar) for under $0.50",
+      "Book a Halong Bay overnight cruise early — the 2-night option is worth it"
+    ],
+    "activities": [
+      { "name": "Hoan Kiem Lake & Ngoc Son Temple", "category": "culture", "duration_hours": 1.5, "cost_usd": 1, "description": "The heart of Hanoi — a serene lake with a small temple on an island connected by a red bridge." },
+      { "name": "Old Quarter Street Food Walk", "category": "food", "duration_hours": 3, "cost_usd": 12, "description": "Pho, banh mi, bun cha, and egg coffee across the 36 guild streets of the ancient quarter." },
+      { "name": "Ho Chi Minh Mausoleum Complex", "category": "culture", "duration_hours": 2, "cost_usd": 0, "description": "A vast complex including the mausoleum, the Presidential Palace, and Ho Chi Minh's stilt house." },
+      { "name": "Halong Bay Overnight Cruise", "category": "nature", "duration_hours": 24, "cost_usd": 90, "description": "Limestone karsts rising from emerald water — one of the world's iconic natural wonders." },
+      { "name": "Hanoi Cooking Class", "category": "food", "duration_hours": 4, "cost_usd": 25, "description": "Learn to make pho, spring rolls, and banh xeo in a traditional family kitchen." },
+      { "name": "Temple of Literature", "category": "culture", "duration_hours": 1.5, "cost_usd": 1, "description": "Vietnam's first national university, founded in 1070 — beautifully preserved Confucian courtyards." }
+    ]
+  },
+  {
+    "id": "hoi-an",
+    "name": "Hoi An",
+    "country": "Vietnam",
+    "region": "Asia",
+    "description": "Hoi An is Vietnam's most photogenic town — lantern-lit streets, centuries-old merchant houses, and some of the country's best tailoring and cuisine. Slower and more relaxed than the big cities.",
+    "best_seasons": ["spring", "summer"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 38,
+    "avg_flight_cost_usd": 580,
+    "currency": "VND",
+    "language": "Vietnamese",
+    "visa_notes": "Australians can get an e-visa for Vietnam online before departure, valid for up to 90 days.",
+    "tips": [
+      "Get custom clothes tailored — give the tailor 48 hours minimum and do a fitting",
+      "Hire a bicycle to reach An Bang Beach — only 4km from town",
+      "The Ancient Town is best at dawn and dusk when tour groups thin out"
+    ],
+    "activities": [
+      { "name": "Hoi An Ancient Town Night Walk", "category": "culture", "duration_hours": 2, "cost_usd": 5, "description": "UNESCO-listed old town lit by hundreds of silk lanterns — magical at night." },
+      { "name": "Cao Lau & White Rose Dumplings", "category": "food", "duration_hours": 2, "cost_usd": 8, "description": "Hoi An's two signature dishes — only authentic when made with local well water." },
+      { "name": "My Son Sanctuary Day Trip", "category": "culture", "duration_hours": 5, "cost_usd": 15, "description": "Ancient Hindu Cham towers in the jungle — Vietnam's answer to Angkor." },
+      { "name": "Cooking Class at Morning Market", "category": "food", "duration_hours": 4, "cost_usd": 30, "description": "Shop at the market with a chef, then cook a 5-course Vietnamese meal from scratch." },
+      { "name": "An Bang Beach Day", "category": "relaxation", "duration_hours": 4, "cost_usd": 10, "description": "A quiet stretch of beach 4km from town with beachside restaurants and clear water." },
+      { "name": "Basket Boat Tour in Cam Thanh", "category": "adventure", "duration_hours": 2, "cost_usd": 15, "description": "Traditional round wicker boats through the coconut palm water forest — locals do tricks." }
+    ]
+  },
+  {
+    "id": "bangkok",
+    "name": "Bangkok",
+    "country": "Thailand",
+    "region": "Asia",
+    "description": "Bangkok is chaotic, beautiful, and endlessly rewarding. Grand temples, floating markets, a rooftop bar skyline, and the world's best street food all exist within a few kilometres of each other.",
+    "best_seasons": ["winter", "autumn"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 55,
+    "avg_flight_cost_usd": 480,
+    "currency": "THB",
+    "language": "Thai",
+    "visa_notes": "Australians receive a free 60-day visa on arrival (extended from 30 days as of 2024).",
+    "tips": [
+      "Use the BTS Skytrain and MRT metro to avoid traffic — Bangkok traffic is infamous",
+      "Tuk-tuks are for atmosphere not efficiency — always agree on price before getting in",
+      "Respect temple dress codes — cover shoulders and knees"
+    ],
+    "activities": [
+      { "name": "Grand Palace & Wat Phra Kaew", "category": "culture", "duration_hours": 3, "cost_usd": 15, "description": "Thailand's most sacred temple complex housing the Emerald Buddha inside the Royal Palace grounds." },
+      { "name": "Chatuchak Weekend Market", "category": "shopping", "duration_hours": 4, "cost_usd": 20, "description": "One of the world's largest markets — 15,000 stalls of everything imaginable." },
+      { "name": "Floating Market at Damnoen Saduak", "category": "culture", "duration_hours": 4, "cost_usd": 25, "description": "Vendors selling fresh produce and cooked food from traditional wooden boats on the canals." },
+      { "name": "Yaowarat (Chinatown) Night Food Walk", "category": "food", "duration_hours": 3, "cost_usd": 15, "description": "Bangkok's Chinatown explodes after dark with seafood, roasted duck, and mango sticky rice." },
+      { "name": "Rooftop Bar at Lebua Sky Bar", "category": "nightlife", "duration_hours": 2, "cost_usd": 40, "description": "200m above the city — the bar from The Hangover 2 with unforgettable Bangkok views." },
+      { "name": "Muay Thai Boxing Evening", "category": "adventure", "duration_hours": 3, "cost_usd": 30, "description": "A live Muay Thai bout at Rajadamnern or Lumpinee stadium — raw and electric." }
+    ]
+  },
+  {
+    "id": "phuket",
+    "name": "Phuket",
+    "country": "Thailand",
+    "region": "Asia",
+    "description": "Thailand's largest island offers turquoise Andaman Sea waters, limestone cliffs, and lively beach towns. The ideal base for island hopping, diving, and beach relaxation.",
+    "best_seasons": ["winter", "spring"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 60,
+    "avg_flight_cost_usd": 500,
+    "currency": "THB",
+    "language": "Thai",
+    "visa_notes": "Australians receive a free 60-day visa on arrival.",
+    "tips": [
+      "Stay in Kata or Kamala for a calmer beach than Patong",
+      "Rent a scooter to explore hidden beaches — international licence required",
+      "Avoid jet skis — scams and injuries are common"
+    ],
+    "activities": [
+      { "name": "Phi Phi Island Day Trip", "category": "nature", "duration_hours": 8, "cost_usd": 40, "description": "Speedboat to the emerald-green lagoons and white sand of Koh Phi Phi." },
+      { "name": "Phang Nga Bay Kayaking", "category": "adventure", "duration_hours": 7, "cost_usd": 55, "description": "Sea kayak through mangroves and into hidden sea caves in James Bond Bay." },
+      { "name": "Patong Beach & Bangla Road", "category": "nightlife", "duration_hours": 4, "cost_usd": 25, "description": "Phuket's famous nightlife strip — colourful, chaotic, and unforgettable." },
+      { "name": "Big Buddha & Old Phuket Town", "category": "culture", "duration_hours": 3, "cost_usd": 0, "description": "A 45m marble statue with panoramic views, then Sino-Portuguese heritage buildings in the old town." },
+      { "name": "Scuba Diving at Similan Islands", "category": "adventure", "duration_hours": 8, "cost_usd": 80, "description": "World-class diving with manta rays, leopard sharks, and visibility up to 30m." }
+    ]
+  },
+  {
+    "id": "queenstown",
+    "name": "Queenstown",
+    "country": "New Zealand",
+    "region": "Oceania",
+    "description": "Queenstown is the adventure capital of the world — bungee jumping, skydiving, and skiing all within reach. Set on the shore of Lake Wakatipu surrounded by the Remarkables mountain range.",
+    "best_seasons": ["summer", "winter"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 140,
+    "avg_flight_cost_usd": 350,
+    "currency": "NZD",
+    "language": "English / Māori",
+    "visa_notes": "Australians do not need a visa to enter New Zealand — Australian citizens can live and work there indefinitely.",
+    "tips": [
+      "Book adventure activities in advance, especially in peak summer/ski season",
+      "Hire a car — the drive to Milford Sound and Wanaka is as scenic as the destination",
+      "Try a Fergburger — the queue is real but so is the reward"
+    ],
+    "activities": [
+      { "name": "AJ Hackett Bungee at Kawarau Bridge", "category": "adventure", "duration_hours": 2, "cost_usd": 165, "description": "The original commercial bungee jump, 43m above the turquoise Kawarau River." },
+      { "name": "Skydive Queenstown", "category": "adventure", "duration_hours": 3, "cost_usd": 250, "description": "Tandem skydive from 15,000ft over the Remarkables, Lake Wakatipu, and Mount Cook." },
+      { "name": "Milford Sound Day Trip", "category": "nature", "duration_hours": 9, "cost_usd": 120, "description": "UNESCO World Heritage fiord with sheer 1200m cliffs, waterfalls, and dolphins." },
+      { "name": "Coronet Peak Ski Day", "category": "adventure", "duration_hours": 7, "cost_usd": 110, "description": "Queenstown's most accessible ski resort — 25 runs across all skill levels, open June–October." },
+      { "name": "Shotover Jet Boat", "category": "adventure", "duration_hours": 1, "cost_usd": 125, "description": "High-speed jet boat through narrow rocky canyons with 360° spins." },
+      { "name": "Queenstown Hill Walk", "category": "nature", "duration_hours": 2.5, "cost_usd": 0, "description": "A free hike giving panoramic views of the lake, the Remarkables, and the town below." }
+    ]
+  },
+  {
+    "id": "cusco",
+    "name": "Cusco",
+    "country": "Peru",
+    "region": "Americas",
+    "description": "Cusco was the capital of the Inca Empire and remains one of the most remarkable living heritage cities on earth. The gateway to Machu Picchu, with Andean food, colonial architecture, and high-altitude adventure.",
+    "best_seasons": ["winter", "spring"],
+    "budget_level": "budget",
+    "avg_daily_cost_usd": 50,
+    "avg_flight_cost_usd": 1600,
+    "currency": "PEN",
+    "language": "Spanish / Quechua",
+    "visa_notes": "Australians receive a free tourist stamp on arrival valid for up to 183 days.",
+    "tips": [
+      "Spend 2–3 days acclimatising to altitude (3,400m) before any strenuous activity",
+      "Drink coca tea — locals swear by it for altitude sickness",
+      "Book the Inca Trail 6+ months ahead; the Sun Gate and Huayna Picchu require advance permits"
+    ],
+    "activities": [
+      { "name": "Machu Picchu Full Day", "category": "culture", "duration_hours": 8, "cost_usd": 50, "description": "The ancient Inca citadel at 2,430m — one of the New Seven Wonders of the World." },
+      { "name": "Sacred Valley & Pisac Market", "category": "culture", "duration_hours": 7, "cost_usd": 25, "description": "Inca ruins, weaving communities, and a vibrant artisan market 30km from Cusco." },
+      { "name": "Inca Trail Trek", "category": "adventure", "duration_hours": 96, "cost_usd": 600, "description": "The classic 4-day Inca Trail trek through cloud forest and mountain passes to Machu Picchu." },
+      { "name": "San Pedro Market Breakfast", "category": "food", "duration_hours": 1.5, "cost_usd": 5, "description": "A local covered market with fresh juices, tamales, and quinoa porridge for under $3." },
+      { "name": "Sacsayhuamán Fortress", "category": "culture", "duration_hours": 2, "cost_usd": 15, "description": "Massive zigzag Inca walls above Cusco, built from stones weighing up to 300 tonnes." },
+      { "name": "Rainbow Mountain Hike", "category": "adventure", "duration_hours": 10, "cost_usd": 35, "description": "A stunning striped mountain of coloured minerals at 5,200m — a full-day guided hike." }
+    ]
+  },
+  {
+    "id": "athens",
+    "name": "Athens",
+    "country": "Greece",
+    "region": "Europe",
+    "description": "Athens is the cradle of Western civilisation — and after a decade of reinvention, one of Europe's most exciting cities for food and nightlife too. The Acropolis still dominates the skyline as it has for 2,500 years.",
+    "best_seasons": ["spring", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 110,
+    "avg_flight_cost_usd": 1350,
+    "currency": "EUR",
+    "language": "Greek",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Buy the combined archaeological ticket — it covers the Acropolis, Agora, and 4 other sites",
+      "Visit the Acropolis at opening time (8am) or the last hour before closing to beat the heat and crowds",
+      "Athens is an ideal base — day trips to Santorini, Delphi, and Mycenae are all feasible"
+    ],
+    "activities": [
+      { "name": "Acropolis & Parthenon", "category": "culture", "duration_hours": 3, "cost_usd": 20, "description": "The 5th-century BC Parthenon temple perched above the city — the defining monument of ancient Greece." },
+      { "name": "Acropolis Museum", "category": "culture", "duration_hours": 2.5, "cost_usd": 10, "description": "World-class museum built over excavations, housing original Parthenon friezes and artefacts." },
+      { "name": "Monastiraki Flea Market & Psiri Food Walk", "category": "food", "duration_hours": 3, "cost_usd": 20, "description": "Athens' bohemian quarter — souvlaki, spanakopita, and loukoumades (honey doughnuts)." },
+      { "name": "Cape Sounion Sunset", "category": "nature", "duration_hours": 5, "cost_usd": 10, "description": "The Temple of Poseidon on a clifftop 70km from Athens — best seen at golden hour." },
+      { "name": "Santorini Day Trip by Ferry", "category": "relaxation", "duration_hours": 12, "cost_usd": 60, "description": "High-speed ferry to the famous caldera island — Oia, black sand beaches, and volcanic wine." },
+      { "name": "Athenian Street Food Tour", "category": "food", "duration_hours": 3, "cost_usd": 30, "description": "Guided tour of Athens' best street food from tiropita to bougatsa pastry." }
+    ]
+  },
+  {
+    "id": "lisbon",
+    "name": "Lisbon",
+    "country": "Portugal",
+    "region": "Europe",
+    "description": "Lisbon is sun-drenched, hilly, and melancholic in the best way. Portugal's capital is one of Europe's most affordable and charming cities, built across seven hills over the Tagus estuary.",
+    "best_seasons": ["spring", "summer", "autumn"],
+    "budget_level": "mid-range",
+    "avg_daily_cost_usd": 100,
+    "avg_flight_cost_usd": 1400,
+    "currency": "EUR",
+    "language": "Portuguese",
+    "visa_notes": "Australians can visit Schengen countries visa-free for up to 90 days in any 180-day period.",
+    "tips": [
+      "Get a 24-hour Viva Viagem card for trams and metro",
+      "Ride tram 28 for a scenic tour through the old neighbourhoods",
+      "Pastéis de Nata (custard tarts) are best at Pastéis de Belém"
+    ],
+    "activities": [
+      { "name": "Belém Tower & Jerónimos Monastery", "category": "culture", "duration_hours": 3, "cost_usd": 12, "description": "UNESCO-listed Manueline-style monuments at the edge of the Tagus." },
+      { "name": "Alfama District & Fado Show", "category": "culture", "duration_hours": 3, "cost_usd": 25, "description": "Lisbon's ancient Moorish quarter where fado music was born — haunting and beautiful." },
+      { "name": "Sintra Day Trip", "category": "nature", "duration_hours": 7, "cost_usd": 30, "description": "Fairy-tale palaces in a forested mountain town 40 minutes from Lisbon." },
+      { "name": "LX Factory Sunday Market", "category": "shopping", "duration_hours": 2.5, "cost_usd": 15, "description": "Vintage clothes, street food, and live music in a reclaimed industrial complex." },
+      { "name": "Pastéis de Nata & Coffee Crawl", "category": "food", "duration_hours": 1.5, "cost_usd": 8, "description": "Sample Portugal's famous custard tarts fresh from the oven across the city's best cafés." },
+      { "name": "Miradouro da Graça at Sunset", "category": "relaxation", "duration_hours": 1, "cost_usd": 0, "description": "The best viewpoint in Lisbon — locals gather here at golden hour with wine." }
+    ]
+  }
+]
