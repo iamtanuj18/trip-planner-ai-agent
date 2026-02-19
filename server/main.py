@@ -16,12 +16,12 @@ load_dotenv()
 
 app = FastAPI(title="Trip Planner AI")
 
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173")
+_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://*.cloudfront.net",
-    ],
+    allow_origins=_origins,
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
