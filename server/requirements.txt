@@ -3,8 +3,9 @@ uvicorn[standard]
 mangum
 pydantic
 python-dotenv
-langchain-aws
-langchain-core
-langgraph
+langchain-aws==0.2.10
+langchain-core==0.3.37
+langchain==0.3.17
+langgraph==0.2.74
 boto3
 tzdata
