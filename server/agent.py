@@ -17,9 +17,10 @@ _bedrock_base = ChatBedrock(
     model_id=os.getenv("BEDROCK_MODEL_ID", "us.amazon.nova-lite-v1:0"),
     region_name=os.getenv("AWS_REGION", "us-east-1"),
 )
-# tool_choice="any" forces at least one tool call. Used on every planning step
-# until all required tools have run.
-_llm_plan = _bedrock_base.bind_tools(TOOLS, tool_choice="any")
+# Nova Lite only supports tool_choice="auto" — "any" raises a ValueError at
+# bind time. The system prompt already mandates tool use on every turn, so
+# auto is sufficient to get the model to call tools when expected.
+_llm_plan = _bedrock_base.bind_tools(TOOLS, tool_choice="auto")
 
 # No tools attached — used only on the final composing pass so the model
 # cannot trigger another tool call and loop.
