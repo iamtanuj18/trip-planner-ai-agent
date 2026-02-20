@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ChevronDown } from 'lucide-react';
 import type { ReasoningStep } from '../types';
 
@@ -88,7 +88,7 @@ export function ReasoningPanel({ steps, thinking }: ReasoningPanelProps) {
   );
 }
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <p style={{ fontSize: '0.7rem', color: '#aaa', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 500 }}>
       {children}
@@ -153,12 +153,13 @@ function StepRow({ step, index, last }: StepRowProps) {
                   fontSize: '0.78rem',
                   color: '#d4d4d4',
                   overflowX: 'auto',
+                  overflowY: 'auto',
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-word',
                   lineHeight: 1.6,
                   fontFamily: 'ui-monospace, monospace',
                   margin: 0,
-                  maxHeight: 'none',
+                  maxHeight: '220px',
                 }}
               >
                 {value}

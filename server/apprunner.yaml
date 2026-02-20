@@ -21,3 +21,11 @@ run:
       value: "50"
     - name: MAX_MONTHLY_REQUESTS
       value: "500"
+    - name: SESSIONS_TABLE
+      value: trip-planner-sessions
+    - name: DYNAMODB_REGION
+      value: ap-southeast-2
+    - name: LANGSMITH_SECRET_NAME
+      value: trip-planner/langsmith-api-key
+    - name: LANGSMITH_PROJECT
+      value: trip-planner-ai

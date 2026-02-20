@@ -1,4 +1,5 @@
 ﻿import json
+import random as _random
 
 from langchain_core.tools import tool
 
@@ -176,12 +177,26 @@ def build_itinerary(
 
     slots = ["morning", "afternoon", "evening"]
 
+    # Build a shuffled activity pool large enough for all slots.
+    # Using a seeded RNG keeps results stable for the same destination+days.
+    rng = _random.Random(destination_id)
+    shuffled = activities[:]
+    rng.shuffle(shuffled)
+    needed = days * 3
+    pool: list = []
+    while len(pool) < needed:
+        chunk = shuffled[:]
+        rng.shuffle(chunk)
+        pool.extend(chunk)
+    pool = pool[:needed]
+
     itinerary = []
     for day_num in range(1, days + 1):
         schedule: dict[str, str] = {}
+        base = (day_num - 1) * 3
 
         for i, slot in enumerate(slots):
-            act  = activities[((day_num - 1) * 3 + i) % len(activities)] if activities else None
+            act = pool[base + i] if pool else None
             if act:
                 cost = round(act["cost_usd"] * USD_TO_AUD)
                 schedule[slot] = (
@@ -190,7 +205,7 @@ def build_itinerary(
             else:
                 schedule[slot] = "Free time to explore the local area"
 
-        first_act = activities[((day_num - 1) * 3) % len(activities)] if activities else None
+        first_act = pool[base] if pool else None
         theme = first_act["category"].capitalize() if first_act else "Exploration"
 
         itinerary.append({

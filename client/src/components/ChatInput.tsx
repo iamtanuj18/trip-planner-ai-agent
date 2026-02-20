@@ -57,7 +57,6 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
         onInput={handleInput}
         placeholder="Ask anything"
         rows={1}
-        disabled={disabled}
         style={{
           flex: 1,
           resize: 'none',

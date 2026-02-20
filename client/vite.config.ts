@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [tailwindcss(), react()],
   server: {
     proxy: {
-      // Proxy /plan, /health, /usage to the FastAPI backend during dev
+      '/stream': { target: 'http://localhost:8000', changeOrigin: true },
       '/plan':   { target: 'http://localhost:8000', changeOrigin: true },
       '/health': { target: 'http://localhost:8000', changeOrigin: true },
       '/usage':  { target: 'http://localhost:8000', changeOrigin: true },

@@ -1,12 +1,21 @@
-﻿import React from 'react';
+﻿import { type ReactNode } from 'react';
 import type { Message } from '../types';
 import { ReasoningPanel } from './ReasoningPanel';
 
+const TOOL_DISPLAY: Record<string, string> = {
+  search_destinations:         'Searching destinations…',
+  estimate_budget:             'Estimating costs…',
+  get_activities:              'Finding activities…',
+  build_itinerary:             'Building your itinerary…',
+  list_available_destinations: 'Checking destinations…',
+};
+
 interface MessageBubbleProps {
-  message: Message;
+  message:     Message;
+  isStreaming?: boolean;
 }
 
-export function MessageBubble({ message }: MessageBubbleProps) {
+export function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
   if (message.role === 'user') {
     return (
       <div style={{ display: 'flex', justifyContent: 'flex-end' }} className="animate-fade-up">
@@ -29,14 +38,28 @@ export function MessageBubble({ message }: MessageBubbleProps) {
   }
 
   if (message.loading) {
+    const toolsDone = (message.reasoning_steps?.length ?? 0) > 0;
+    const statusText = message.activeTool
+      ? (TOOL_DISPLAY[message.activeTool] ?? `Running ${message.activeTool.replace(/_/g, ' ')}…`)
+      : toolsDone ? 'Preparing your plan…' : 'Thinking…';
+
     return (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', padding: '0.35rem 0' }} className="animate-fade-up">
-        <span style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
-          <span className="dot-1" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
-          <span className="dot-2" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
-          <span className="dot-3" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
-        </span>
-        <span style={{ fontSize: '0.825rem', color: '#888', fontStyle: 'italic' }}>Thinking</span>
+      <div className="animate-fade-up">
+        {(message.reasoning_steps?.length || message.thinking) && (
+          <div style={{ marginBottom: '1.25rem' }}>
+            <ReasoningPanel steps={message.reasoning_steps ?? []} thinking={message.thinking} />
+          </div>
+        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0' }}>
+          <span style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+            <span className="dot-1" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
+            <span className="dot-2" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
+            <span className="dot-3" style={{ width: 9, height: 9, borderRadius: '50%', display: 'inline-block', background: '#bbb' }} />
+          </span>
+          <span style={{ fontSize: '0.825rem', color: '#888', fontStyle: 'italic' }}>
+            {statusText}
+          </span>
+        </div>
       </div>
     );
   }
@@ -84,6 +107,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         </div>
       )}
       {renderContent(message.content)}
+      {isStreaming && <span className="streaming-cursor" />}
     </div>
   );
 }
@@ -119,7 +143,7 @@ function renderContent(raw: string) {
   });
 }
 
-function renderInline(text: string): React.ReactNode {
+function renderInline(text: string): ReactNode {
   const parts = text.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
@@ -138,7 +162,7 @@ function renderInline(text: string): React.ReactNode {
   });
 }
 
-function Heading2({ children }: { children: React.ReactNode }) {
+function Heading2({ children }: { children: ReactNode }) {
   return (
     <p style={{ fontWeight: 700, marginTop: '1.5rem', marginBottom: '0.375rem', color: '#ffffff', fontSize: '1.05rem' }}>
       {children}
@@ -146,7 +170,7 @@ function Heading2({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Heading3({ children }: { children: React.ReactNode }) {
+function Heading3({ children }: { children: ReactNode }) {
   return (
     <p style={{ fontWeight: 600, marginTop: '1.25rem', marginBottom: '0.25rem', color: '#ffffff', fontSize: '1rem' }}>
       {children}
@@ -154,7 +178,7 @@ function Heading3({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Heading4({ children }: { children: React.ReactNode }) {
+function Heading4({ children }: { children: ReactNode }) {
   return (
     <p style={{ fontWeight: 600, marginTop: '1rem', marginBottom: '0.15rem', color: '#e0e0e0', fontSize: '0.95rem' }}>
       {children}

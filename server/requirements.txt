@@ -7,5 +7,6 @@ langchain-aws==0.2.10
 langchain-core==0.3.37
 langchain==0.3.17
 langgraph==0.2.74
+langsmith
 boto3
 tzdata

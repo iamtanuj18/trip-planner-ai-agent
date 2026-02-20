@@ -11,6 +11,7 @@ export interface Message {
   thinking?:              string;
   follow_up_suggestions?: string[];
   loading?:               boolean;
+  activeTool?:            string;
   isError?:               boolean;
   rateLimitReset?:        string;
 }
