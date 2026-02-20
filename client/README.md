@@ -1,52 +1,53 @@
 # Client
 
-React frontend for Trip Planner AI. Chat interface for the travel planning agent with a live reasoning panel showing tool call details.
+React frontend for Trip Planner AI. Chat interface with real-time SSE streaming, per-tool status indicators, and a collapsible reasoning panel showing every tool call the agent made.
 
-## Tech Stack
+## Tech stack
 
 - React 19, TypeScript
 - Vite + `@tailwindcss/vite`
-- Tailwind CSS (utility classes + CSS custom properties for theming)
-- Lucide React (icons)
+- Tailwind CSS with CSS custom properties for theming
+- Lucide React for icons
 
-## Project Structure
+## Project structure
 
 ```
 src/
-├── App.tsx                    # Root component — state, API call, layout
+├── App.tsx                    # Root component — all state, SSE streaming, session management
 ├── main.tsx                   # React entry point
-├── types.ts                   # Message and ReasoningStep interfaces
-├── index.css                  # Design tokens, reset, animations
+├── types.ts                   # Message, ReasoningStep type definitions
+├── index.css                  # Design tokens, reset, animations (blinking cursor etc.)
 └── components/
-    ├── MessageBubble.tsx      # Renders user and assistant messages, inline markdown
-    ├── ReasoningPanel.tsx     # Collapsible tool call trace (steps + model thinking)
-    └── ChatInput.tsx          # Auto-resizing textarea with send button
+    ├── MessageBubble.tsx      # Renders user and assistant messages with inline markdown
+    ├── ReasoningPanel.tsx     # Collapsible tool call trace with JSON input/output
+    └── ChatInput.tsx          # Auto-resizing textarea, Enter to send
 ```
 
-## Key Features
+## How it works
 
-- Natural language travel planning via a multi-step AI agent
-- Inline markdown rendering — headings, bullets, numbered lists, bold, links
-- Reasoning panel — shows every tool the agent called, with input and output
-- Follow-up suggestion chips after each assistant response
-- Welcome screen with starter prompts
-- Session memory — last 40 messages sent as history context
-- Rate limit error card with reset date displayed on 429
-- Dark theme with CSS custom properties
+`App.tsx` opens a `POST /stream` request and reads the response as a server-sent event stream. Three event types come back:
 
-## Component Overview
+- `tool_start` — sets `activeTool` on the in-progress message so a per-tool status label renders (e.g. "Searching destinations…", "Building your itinerary…")
+- `tool_end` — clears `activeTool` and appends the step to the reasoning panel
+- `token` — appends the text chunk to the message content
 
-**`App.tsx`**
-Owns all state. Calls `POST /plan` with the message and conversation history, strips `<thinking>` tags from the model response, updates the message list.
+While tokens are arriving the message renders a blinking cursor. Auto-scroll follows the stream but pauses if the user scrolls up, and resumes when the response finishes.
 
-**`MessageBubble.tsx`**
-Three render paths: user bubble (right-aligned), loading dots, assistant message (full-width). Assistant messages go through a lightweight markdown parser that handles `##`/`###`/`####` headings, `-`/`*` bullets, numbered lists, `**bold**`, and `[label](url)` links.
+Session state is kept in `sessionStorage` (tab-isolated, cleared on page reload). Up to 40 messages of history are sent as context with each request. A warning banner appears at 36 messages and the input is disabled at 40 with a "Start new chat" prompt.
 
-**`ReasoningPanel.tsx`**
-Collapsible panel showing the agent reasoning block and each tool call as an expandable row with the raw JSON input/output.
+## Component overview
 
-**`ChatInput.tsx`**
-Textarea that auto-resizes up to 200px. Enter sends, Shift+Enter adds a line break.
+**`App.tsx`**  
+Owns the message list, loading state, session ID, and scroll ref. Handles the SSE stream, `tool_start`/`tool_end`/`token` events, rate limit errors (429), and the session message cap.
+
+**`MessageBubble.tsx`**  
+Renders three states: user bubble (right-aligned), loading indicator (animated dots + per-tool status label after `tool_start`), and assistant message (full-width). Assistant text goes through a lightweight markdown renderer supporting `##`/`###` headings, `-`/`*` bullet lists, numbered lists, `**bold**`, and `[label](url)` links. A streaming cursor appends while the response is still arriving.
+
+**`ReasoningPanel.tsx`**  
+Collapsible panel below each assistant message. Lists every tool call as an expandable row with the raw JSON input and output.
+
+**`ChatInput.tsx`**  
+Textarea that auto-resizes up to 200px. Enter sends, Shift+Enter inserts a newline. Disabled while a response is in flight or the session cap is reached.
 
 ## Development
 
@@ -55,56 +56,31 @@ npm install
 npm run dev
 ```
 
-Runs on `http://localhost:5173`. Vite proxies `/plan`, `/health`, and `/usage` to `http://localhost:8000` so no CORS config is needed locally.
+Runs on `http://localhost:5173`. Vite proxies `/stream`, `/plan`, `/health`, and `/usage` to `http://localhost:8000`, so no CORS config is needed during local development. The backend must be running first — see [server setup](../server/README.md).
 
-Backend must be running first — see [server setup](../server/README.md).
+### Environment variables
 
-### Environment Variables
-
-Create `.env.local` for a custom backend URL (optional — Vite proxy handles it in dev):
+Create `.env.local` with a custom backend URL when pointing at a deployed backend instead of the local server:
 
 ```env
 VITE_API_URL=https://your-app-runner-url.awsapprunner.com
 ```
 
-Leave blank to use the Vite proxy during local development.
+Leave blank to use the Vite proxy during local development. Vite bakes env vars at build time, so a redeploy is required after changing this in Amplify.
 
 ## Deployment (AWS Amplify)
 
-1. Connect repo to Amplify, set **App root directory** to `client`
-2. Amplify auto-detects Vite — verify build settings:
+Build config lives in `amplify.yml` at the repo root. Amplify auto-deploys when `client/` changes on the `main` branch.
 
-```yaml
-version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm install
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: dist
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-appRoot: client
-```
+Required environment variable in the Amplify console:
 
-3. Add environment variable in Amplify console:
-
-| Key | Value |
+| Variable | Value |
 |---|---|
-| `VITE_API_URL` | Your App Runner backend URL |
-
-4. After setting the variable, trigger a redeploy — Vite bakes env vars at build time.
+| `VITE_API_URL` | App Runner backend URL |
 
 ## Scripts
 
-- `npm run dev` — Start dev server with hot reload
-- `npm run build` — Production build to `dist/`
-- `npm run preview` — Preview production build locally
-- `npm run lint` — Run ESLint
+- `npm run dev` — dev server with hot reload
+- `npm run build` — production build to `dist/`
+- `npm run preview` — preview the production build locally
+- `npm run lint` — run ESLint
