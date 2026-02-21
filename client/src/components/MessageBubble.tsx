@@ -144,10 +144,17 @@ function renderContent(raw: string) {
 }
 
 function renderInline(text: string): ReactNode {
-  const parts = text.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
+  const parts = text.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\)|`[^`]+`)/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={i} style={{ color: '#ffffff', fontWeight: 600 }}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return (
+        <code key={i} style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.875em', background: '#2a2a2a', padding: '0.1em 0.35em', borderRadius: '0.25rem', color: '#e5e5e5' }}>
+          {part.slice(1, -1)}
+        </code>
+      );
     }
     const link = part.match(/^\[(.*?)\]\((.*?)\)$/);
     if (link) {

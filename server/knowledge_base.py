@@ -1,4 +1,5 @@
 ﻿import json
+import os as _os
 from pathlib import Path
 
 _DATA_FILE = Path(__file__).parent / "data" / "destinations.json"
@@ -6,7 +7,7 @@ _DATA_FILE = Path(__file__).parent / "data" / "destinations.json"
 with open(_DATA_FILE, "r", encoding="utf-8") as _f:
     _destinations: list[dict] = json.load(_f)
 
-USD_TO_AUD: float = 1.55
+USD_TO_AUD: float = float(_os.getenv("USD_TO_AUD", "1.55"))
 
 _BUDGET_RANK: dict[str, int] = {"budget": 1, "mid-range": 2, "luxury": 3}
 
@@ -47,6 +48,12 @@ def search_destinations(
 
         if region and region.lower() == dest.get("region", "").lower():
             score += 1
+
+        # If the country filter matched but interest/budget/season scoring gave
+        # nothing, guarantee at least score=1 so a valid city never silently
+        # vanishes due to interest category mismatch.
+        if score == 0 and country:
+            score = 1
 
         if score > 0:
             scored.append((score, dest))

@@ -165,8 +165,6 @@ export function App() {
     const completedCount = messages.filter(m => !m.loading).length;
     if (!text.trim() || loading || completedCount >= SESSION_MAX_HISTORY) return;
 
-    const history = messages.slice(-SESSION_MAX_HISTORY).map(m => ({ role: m.role, content: m.content }));
-
     setMessages(prev => [
       ...prev,
       { role: 'user', content: text },
@@ -179,7 +177,7 @@ export function App() {
       const res = await fetch(`${API_BASE}/stream`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ message: text, session_id: SESSION_ID, history }),
+        body:    JSON.stringify({ message: text, session_id: SESSION_ID }),
       });
 
       if (!res.ok || !res.body) {

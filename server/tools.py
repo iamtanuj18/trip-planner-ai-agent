@@ -151,8 +151,11 @@ def build_itinerary(
     """
     Build a structured day-by-day itinerary.
 
-    Call this last  after search_destinations, get_activities, and
-    estimate_budget  to produce the final schedule.
+    Call this last — after search_destinations, get_activities, and
+    estimate_budget — to produce the final schedule.
+
+    Activities are fetched internally from the knowledge base using destination_id
+    and interests. Do NOT pass an activities argument — it is not a parameter.
 
     Args:
         destination_id: The `id` from a search_destinations result.
@@ -178,17 +181,23 @@ def build_itinerary(
     slots = ["morning", "afternoon", "evening"]
 
     # Build a shuffled activity pool large enough for all slots.
-    # Using a seeded RNG keeps results stable for the same destination+days.
-    rng = _random.Random(destination_id)
+    # Seeding with both destination and days means a 3-day and 7-day Kyoto trip
+    # don't share the exact same first N activities.
+    rng = _random.Random(f"{destination_id}-{days}")
     shuffled = activities[:]
     rng.shuffle(shuffled)
     needed = days * 3
     pool: list = []
-    while len(pool) < needed:
-        chunk = shuffled[:]
-        rng.shuffle(chunk)
-        pool.extend(chunk)
-    pool = pool[:needed]
+    if not shuffled:
+        # No activities in KB for this destination — fill with None so slot
+        # formatting below gracefully falls back to "Free time to explore".
+        pool = [None] * needed
+    else:
+        while len(pool) < needed:
+            chunk = shuffled[:]
+            rng.shuffle(chunk)
+            pool.extend(chunk)
+        pool = pool[:needed]
 
     itinerary = []
     for day_num in range(1, days + 1):
@@ -256,10 +265,26 @@ def list_available_destinations() -> str:
     ])
 
 
+@tool
+def noop() -> str:
+    """
+    A no-op that does nothing and returns an empty result.
+
+    Call this when the user's message is not travel-related (greetings, small talk,
+    off-topic questions). It satisfies the mandatory tool-call requirement without
+    loading any destination data.
+
+    Returns:
+        Empty JSON object.
+    """
+    return json.dumps({})
+
+
 TOOLS = [
     search_destinations,
     get_activities,
     estimate_budget,
     build_itinerary,
     list_available_destinations,
+    noop,
 ]

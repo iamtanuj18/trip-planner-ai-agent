@@ -1,5 +1,6 @@
 ﻿import json
 import os
+import re
 from typing import Annotated
 from typing_extensions import TypedDict
 
@@ -12,6 +13,59 @@ from langgraph.graph.message import add_messages
 from tools import TOOLS
 
 load_dotenv()
+
+
+def _camel_to_snake(name: str) -> str:
+    """Convert camelCase or PascalCase to snake_case."""
+    # Insert underscore before uppercase letters that follow lowercase letters or digits
+    s = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name)
+    return s.lower()
+
+
+def _normalise_args(args: dict) -> dict:
+    """Convert top-level dict keys from camelCase to snake_case.
+
+    Nova Lite occasionally generates camelCase argument names (e.g. destinationId,
+    travelStyle) instead of the snake_case names defined in the tool signatures.
+    Normalises them before invoke so Pydantic validation never sees the wrong key.
+    Only top-level keys are converted — nested dicts are not affected.
+    """
+    if not isinstance(args, dict):
+        return args
+    return {_camel_to_snake(k): v for k, v in args.items()}
+
+def _messages_for_free_llm(messages: list) -> list:
+    """Rewrite the message list so it contains no tool-typed messages.
+
+    Bedrock's Converse API throws ValidationException when AIMessage(tool_calls=...)
+    or ToolMessage objects are present without toolConfig in the request. _llm_free
+    has no toolConfig, so passing the raw LangGraph history would trigger LangChain's
+    fallback that serialises every tool call/result as literal text — which the model
+    then echoes back verbatim (the '[Called X with parameters: ...]' leak).
+
+    This walks the history and replaces each AIMessage+ToolMessage block with a
+    single HumanMessage that presents the results as plain text, giving the model
+    all the data it needs without any tool message types reaching the API.
+    """
+    cleaned = []
+    i = 0
+    while i < len(messages):
+        msg = messages[i]
+        if isinstance(msg, AIMessage) and msg.tool_calls:
+            # Gather every ToolMessage that immediately follows this AIMessage.
+            results = []
+            j = i + 1
+            while j < len(messages) and isinstance(messages[j], ToolMessage):
+                results.append(f"{messages[j].name}: {messages[j].content}")
+                j += 1
+            if results:
+                cleaned.append(HumanMessage(content="Tool results:\n" + "\n".join(results)))
+            i = j
+        else:
+            cleaned.append(msg)
+            i += 1
+    return cleaned
+
 
 _bedrock_base = ChatBedrock(
     model_id=os.getenv("BEDROCK_MODEL_ID", "us.amazon.nova-lite-v1:0"),
@@ -37,10 +91,8 @@ You have been given tools. You MUST call at least one tool on every single messa
 There are NO exceptions to this rule. Not for greetings. Not for off-topic messages. Not for simple questions. Always call a tool.
 
 How to handle the forced tool call on non-travel messages:
-- Call list_available_destinations (it is lightweight and always safe to call).
+- Call noop — it returns nothing and is completely safe to call anywhere.
 - Then write your response as described in the SCOPE section below.
-- Do NOT use the tool output in your response for non-travel messages. Ignore the result entirely.
-- Do NOT mention any destination names, city names, or countries from the tool result. Your reply must be purely conversational with zero travel content.
 
 For travel messages: the tool results ARE your data source. Never invent travel data.
 - NEVER state a price, cost, or budget figure without first calling estimate_budget.
@@ -255,7 +307,6 @@ class AgentState(TypedDict):
 
 
 def _agent_node(state: AgentState) -> dict:
-    messages = [SystemMessage(content=_SYSTEM_PROMPT)] + state["messages"]
     last = state["messages"][-1]
 
     if not isinstance(last, ToolMessage):
@@ -279,8 +330,8 @@ def _agent_node(state: AgentState) -> dict:
         if "build_itinerary" in called:
             # All four planning tools done — compose the response.
             llm = _llm_free
-        elif called <= {"list_available_destinations"}:
-            # Non-travel or greeting — dummy tool fired, now compose.
+        elif called <= {"noop"}:
+            # Non-travel or greeting — noop fired, now compose.
             llm = _llm_free
         elif n_dest_searches >= 2 and "estimate_budget" not in called:
             # Two destination lookups with no budget = comparison query — compose now.
@@ -295,7 +346,14 @@ def _agent_node(state: AgentState) -> dict:
             # Still mid-sequence — force the next required tool call.
             llm = _llm_plan
 
-    response = llm.invoke(messages)
+    # _llm_free must never receive tool-typed messages — rewrite the history
+    # to plain text so Bedrock's Converse API doesn't require toolConfig.
+    if llm is _llm_free:
+        raw = _messages_for_free_llm(state["messages"])
+    else:
+        raw = state["messages"]
+
+    response = llm.invoke([SystemMessage(content=_SYSTEM_PROMPT)] + raw)
     return {"messages": [response]}
 
 
@@ -303,20 +361,26 @@ def _tool_node(state: AgentState) -> dict:
     last_msg = state["messages"][-1]
     tool_map = {t.name: t for t in TOOLS}
     tool_messages: list[ToolMessage] = []
-    reasoning_steps: list[dict] = list(state.get("reasoning_steps", []))
+    reasoning_steps: list[dict] = list(state["reasoning_steps"])
 
-    for call in last_msg.tool_calls:
-        fn = tool_map.get(call["name"])
-        result = fn.invoke(call["args"]) if fn else json.dumps({"error": f"Unknown tool: {call['name']}"})
+    for tc in last_msg.tool_calls:
+        fn              = tool_map.get(tc["name"])
+        normalised_args = _normalise_args(tc["args"])
+        try:
+            result = fn.invoke(normalised_args) if fn else json.dumps({"error": f"Unknown tool: {tc['name']}"})
+        except Exception as exc:
+            # Surface the error as JSON so the agent can see and handle it
+            # rather than crashing the whole graph execution.
+            result = json.dumps({"error": str(exc)})
 
         tool_messages.append(ToolMessage(
             content=result,
-            tool_call_id=call["id"],
-            name=call["name"],            # needed for _agent_node trigger checks
+            tool_call_id=tc["id"],
+            name=tc["name"],            # needed for _agent_node trigger checks
         ))
         reasoning_steps.append({
-            "tool":   call["name"],
-            "input":  call["args"],
+            "tool":   tc["name"],
+            "input":  normalised_args,
             "output": json.loads(result) if isinstance(result, str) else result,
         })
 

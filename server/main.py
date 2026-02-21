@@ -1,4 +1,5 @@
-﻿import json
+﻿import asyncio
+import json
 import os
 import re
 import time as _time
@@ -9,11 +10,10 @@ import boto3
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from mangum import Mangum
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-from agent import run_agent, arun_agent
+from agent import arun_agent
 
 load_dotenv()
 
@@ -53,6 +53,7 @@ _MAX_MONTHLY   = int(os.getenv("MAX_MONTHLY_REQUESTS", "500"))
 
 _daily:   dict = {"date":  date.today(),                "count": 0}
 _monthly: dict = {"month": date.today().replace(day=1), "count": 0}
+_rate_limit_lock = asyncio.Lock()  # makes concurrent counter updates atomic
 
 # Session storage — DynamoDB in production, in-memory dict locally.
 _SESSIONS_TABLE_NAME = os.getenv("SESSIONS_TABLE", "")
@@ -68,7 +69,8 @@ if _SESSIONS_TABLE_NAME:
         pass
 
 _sessions_mem: dict[str, list[dict]] = {}
-_SESSION_MAX = 40
+_SESSION_MAX      = 40
+_SESSIONS_MEM_MAX = 500  # cap for in-memory sessions (local dev only)
 
 
 def _get_session(sid: str) -> list[dict]:
@@ -93,6 +95,9 @@ def _put_session(sid: str, history: list[dict]) -> None:
         except Exception:
             pass
     if sid:
+        # Evict the oldest entry if the cap is hit — keeps local dev memory tidy.
+        if sid not in _sessions_mem and len(_sessions_mem) >= _SESSIONS_MEM_MAX:
+            del _sessions_mem[next(iter(_sessions_mem))]
         _sessions_mem[sid] = history
 
 
@@ -100,49 +105,50 @@ def _fmt_reset(dt: datetime) -> str:
     return dt.strftime(f"%A {dt.day} %B %Y at 12:00 AM %Z")
 
 
-def _check_rate_limit() -> None:
-    today      = date.today()
-    this_month = today.replace(day=1)
+async def _check_rate_limit() -> None:
+    async with _rate_limit_lock:
+        today      = date.today()
+        this_month = today.replace(day=1)
 
-    if _daily["date"] != today:
-        _daily["date"]  = today
-        _daily["count"] = 0
+        if _daily["date"] != today:
+            _daily["date"]  = today
+            _daily["count"] = 0
 
-    if _monthly["month"] != this_month:
-        _monthly["month"] = this_month
-        _monthly["count"] = 0
+        if _monthly["month"] != this_month:
+            _monthly["month"] = this_month
+            _monthly["count"] = 0
 
-    if _monthly["count"] >= _MAX_MONTHLY:
-        now = datetime.now(_MELBOURNE_TZ)
-        if now.month == 12:
-            reset_dt = now.replace(year=now.year + 1, month=1, day=1,
-                                   hour=0, minute=0, second=0, microsecond=0)
-        else:
-            reset_dt = now.replace(month=now.month + 1, day=1,
-                                   hour=0, minute=0, second=0, microsecond=0)
-        raise HTTPException(
-            status_code=429,
-            detail={
-                "type":      "monthly_limit",
-                "message":   f"Monthly limit of {_MAX_MONTHLY} requests reached.",
-                "resets_at": _fmt_reset(reset_dt),
-            },
-        )
+        if _monthly["count"] >= _MAX_MONTHLY:
+            now = datetime.now(_MELBOURNE_TZ)
+            if now.month == 12:
+                reset_dt = now.replace(year=now.year + 1, month=1, day=1,
+                                       hour=0, minute=0, second=0, microsecond=0)
+            else:
+                reset_dt = now.replace(month=now.month + 1, day=1,
+                                       hour=0, minute=0, second=0, microsecond=0)
+            raise HTTPException(
+                status_code=429,
+                detail={
+                    "type":      "monthly_limit",
+                    "message":   f"Monthly limit of {_MAX_MONTHLY} requests reached.",
+                    "resets_at": _fmt_reset(reset_dt),
+                },
+            )
 
-    if _daily["count"] >= _MAX_DAILY:
-        now      = datetime.now(_MELBOURNE_TZ)
-        reset_dt = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-        raise HTTPException(
-            status_code=429,
-            detail={
-                "type":      "daily_limit",
-                "message":   f"Daily limit of {_MAX_DAILY} requests reached.",
-                "resets_at": _fmt_reset(reset_dt),
-            },
-        )
+        if _daily["count"] >= _MAX_DAILY:
+            now      = datetime.now(_MELBOURNE_TZ)
+            reset_dt = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            raise HTTPException(
+                status_code=429,
+                detail={
+                    "type":      "daily_limit",
+                    "message":   f"Daily limit of {_MAX_DAILY} requests reached.",
+                    "resets_at": _fmt_reset(reset_dt),
+                },
+            )
 
-    _daily["count"]   += 1
-    _monthly["count"] += 1
+        _daily["count"]   += 1
+        _monthly["count"] += 1
 
 
 def _partial_tag_len(text: str, tag: str) -> int:
@@ -155,7 +161,7 @@ def _partial_tag_len(text: str, tag: str) -> int:
 
 
 def _extract_suggestions(text: str) -> tuple[str, list[str]]:
-    # Strip any <thinking> blocks the filter may have missed (e.g. from /plan endpoint).
+    # Strip any stray <thinking> blocks the streaming filter may have missed.
     text = re.sub(r"<thinking>[\s\S]*?</thinking>", "", text, flags=re.DOTALL).strip()
 
     suggestions: list[str] = []
@@ -209,12 +215,6 @@ class PlanRequest(BaseModel):
     history: list[Message] = []
 
 
-class PlanResponse(BaseModel):
-    response: str
-    reasoning_steps: list[dict]
-    follow_up_suggestions: list[str] = []
-
-
 @app.get("/health")
 def health():
     return {"status": "ok"}
@@ -234,41 +234,9 @@ def usage():
     }
 
 
-@app.post("/plan", response_model=PlanResponse)
-def plan(body: PlanRequest):
-    _check_rate_limit()
-
-    sid = body.session_id
-    history = (
-        _get_session(sid)
-        if sid
-        else [{"role": m.role, "content": m.content} for m in body.history]
-    )
-
-    try:
-        result = run_agent(user_message=body.message, history=history)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
-
-    clean_response, suggestions = _extract_suggestions(result["response"])
-
-    if sid:
-        updated = history + [
-            {"role": "user",      "content": body.message},
-            {"role": "assistant", "content": clean_response},
-        ]
-        _put_session(sid, updated[-_SESSION_MAX:])
-
-    return PlanResponse(
-        response=clean_response,
-        reasoning_steps=result["reasoning_steps"],
-        follow_up_suggestions=suggestions,
-    )
-
-
 @app.post("/stream")
 async def stream_plan(body: PlanRequest):
-    _check_rate_limit()
+    await _check_rate_limit()
 
     sid = body.session_id
     history = (
@@ -346,6 +314,3 @@ async def stream_plan(body: PlanRequest):
         media_type="text/event-stream",
         headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache"},
     )
-
-
-handler = Mangum(app)
