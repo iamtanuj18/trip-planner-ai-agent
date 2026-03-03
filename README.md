@@ -21,12 +21,22 @@ Conversation memory is preserved within a session so follow-up messages like "ma
 | Observability | LangSmith |
 | Hosting | AWS App Runner (backend), AWS Amplify (frontend) |
 
+## Architecture
+
+![Architecture Diagram](arch.png)
+
+## Agent Loop
+
+![Agent Loop Diagram](agent.png)
+
 ## Project structure
 
 ```
 ├── client/          # React + Vite frontend
 ├── server/          # FastAPI + LangGraph backend
 ├── amplify.yml      # Amplify build config
+├── arch.png         # Architecture diagram
+├── agent.png        # Agent loop diagram
 └── .gitignore
 ```
 

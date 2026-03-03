@@ -1,5 +1,6 @@
 # ── Project Docs ──────────────
 BUILD_PLAN.md
+documents/
 
 # ── Python ────────────────────────────────────────
 __pycache__/
